@@ -35,7 +35,7 @@
       background-color: #fff;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       resize: vertical;
-      height: 30px;
+      height: 100px;
     }
     
     button {
@@ -57,6 +57,13 @@
     .result-label {
       margin-top: 10px;
       font-weight: bold;
+      height: 30px;
+    }
+    
+    #qrcode {
+      display: block;
+      margin-top: 30px;
+      text-align: center;
     }
   </style>
 </head>
@@ -74,7 +81,10 @@
     <button onclick="copyResult()">Copy</button>
   </div>
   
+  <div id="qrcode"></div>
+  
   <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
   <script>
     function processString() {
       var inputElement = document.getElementById("inputString");
@@ -85,6 +95,8 @@
       
       var resultLabel = document.getElementById("resultLabel");
       resultLabel.textContent = "Processed string: " + processedString;
+      
+      generateQRCode(window.location.href);
     }
     
     function copyResult() {
@@ -92,19 +104,4 @@
       var processedString = resultLabel.textContent.replace("Processed string: ", "");
       
       // Create a temporary textarea element to copy the text
-      var tempTextarea = document.createElement("textarea");
-      tempTextarea.value = processedString;
-      document.body.appendChild(tempTextarea);
-      tempTextarea.select();
-      
-      // Copy the text to the clipboard
-      document.execCommand("copy");
-      
-      // Remove the temporary textarea
-      document.body.removeChild(tempTextarea);
-      
-      alert("Copied to clipboard: " + processedString);
-    }
-  </script>
-</body>
-</html>
+      var tempTextarea =
