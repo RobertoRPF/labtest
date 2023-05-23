@@ -70,10 +70,6 @@
       left: 20px;
       text-align: left;
     }
-    
-    #barcodeScanner {
-      display: none;
-    }
   </style>
 </head>
 <body>
@@ -94,9 +90,6 @@
   
   <div id="qrcode"></div>
   
-  <input type="file" id="barcodeScanner" accept="image/*" capture="environment" onchange="handleBarcodeScan(event)">
-  
-  <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
   <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
   <script>
     function processString() {
@@ -141,37 +134,7 @@
     }
     
     function scanBarcode() {
-      var barcodeScanner = document.getElementById("barcodeScanner");
-      barcodeScanner.click();
-    }
-    
-    function handleBarcodeScan(event) {
-      var file = event.target.files[0];
-      
-      // Load and decode the barcode using Quagga
-      Quagga.decodeSingle({
-        src: URL.createObjectURL(file),
-        numOfWorkers: 0,
-        inputStream: {
-          size: 800
-        },
-        decoder: {
-          readers: ["ean_reader"] // Change the reader type as per your requirement
-        },
-        locate: true,
-        locator: {
-          patchSize: "medium",
-          halfSample: true
-        }
-      }, function(result) {
-        if (result && result.codeResult) {
-          var inputString = result.codeResult.code;
-          var inputElement = document.getElementById("inputString");
-          inputElement.value = inputString;
-          
-          processString();
-        }
-      });
+      alert("Barcode scanning is not supported in the browser. Please use a dedicated barcode scanning app.");
     }
   </script>
 </body>
