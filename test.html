@@ -67,42 +67,43 @@
     <label for="inputString">Paste your string:</label>
     <textarea id="inputString" rows="2" cols="50"></textarea>
   
-    <button onclick="scanBarcode()">Scan</button>
+    <button onclick="processString()">Process</button>
     
     <label class="result-label" id="resultLabel"></label>
+    
+    <button onclick="copyResult()">Copy</button>
   </div>
   
   <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
   <script>
-    function scanBarcode() {
-      var resultLabel = document.getElementById("resultLabel");
-      resultLabel.textContent = "Scanning...";
+    function processString() {
+      var inputElement = document.getElementById("inputString");
+      var inputString = inputElement.value;
       
-      Quagga.init({
-        inputStream: {
-          name: "Live",
-          type: "LiveStream",
-          target: document.querySelector('#inputString') // Use the textarea as the target
-        },
-        decoder: {
-          readers: ['ean_reader'] // Configure the supported barcode types here
-        }
-      }, function(err) {
-        if (err) {
-          console.error("Failed to initialize Quagga:", err);
-          resultLabel.textContent = "Failed to initialize barcode scanner.";
-          return;
-        }
-        
-        Quagga.start();
-        
-        Quagga.onDetected(function(result) {
-          if (result && result.codeResult && result.codeResult.code) {
-            Quagga.stop();
-            resultLabel.textContent = "Scanned barcode: " + result.codeResult.code;
-          }
-        });
-      });
+      // Remove spaces and dots from the input string
+      var processedString = inputString.replace(/[\s.]/g, "");
+      
+      var resultLabel = document.getElementById("resultLabel");
+      resultLabel.textContent = "Processed string: " + processedString;
+    }
+    
+    function copyResult() {
+      var resultLabel = document.getElementById("resultLabel");
+      var processedString = resultLabel.textContent.replace("Processed string: ", "");
+      
+      // Create a temporary textarea element to copy the text
+      var tempTextarea = document.createElement("textarea");
+      tempTextarea.value = processedString;
+      document.body.appendChild(tempTextarea);
+      tempTextarea.select();
+      
+      // Copy the text to the clipboard
+      document.execCommand("copy");
+      
+      // Remove the temporary textarea
+      document.body.removeChild(tempTextarea);
+      
+      alert("Copied to clipboard: " + processedString);
     }
   </script>
 </body>
