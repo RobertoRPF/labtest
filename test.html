@@ -65,9 +65,10 @@
     }
     
     #qrcode {
-      display: block;
-      margin-top: 30px;
-      text-align: center;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      text-align: left;
     }
   </style>
 </head>
@@ -113,4 +114,25 @@
       var tempTextarea = document.createElement("textarea");
       tempTextarea.value = processedString;
       document.body.appendChild(tempTextarea);
-     
+      
+      // Copy the text from the temporary textarea
+      tempTextarea.select();
+      document.execCommand("copy");
+      
+      // Remove the temporary textarea
+      document.body.removeChild(tempTextarea);
+    }
+    
+    function generateQRCode(url) {
+      var qrcodeContainer = document.getElementById("qrcode");
+      qrcodeContainer.innerHTML = ""; // Clear previous QR code
+      
+      var qrcode = new QRCode(qrcodeContainer, {
+        text: url,
+        width: 128,
+        height: 128
+      });
+    }
+  </script>
+</body>
+</html>
