@@ -67,7 +67,7 @@
     #qrcode {
       position: fixed;
       bottom: 20px;
-      left: 20px;
+      right: 20px;
       text-align: left;
     }
   </style>
@@ -81,7 +81,6 @@
   
     <div class="button-container">
       <button onclick="processString()">Process</button>
-      <button onclick="copyResult()">Copy</button>
     </div>
     
     <label class="result-label" id="resultLabel"></label>
@@ -112,13 +111,6 @@
         .catch(function(error) {
           console.error("Error copying text to clipboard: " + error);
         });
-    }
-    
-    function copyResult() {
-      var resultLabel = document.getElementById("resultLabel");
-      var processedString = resultLabel.textContent.replace("Processed string: ", "");
-      
-      copyToClipboard(processedString);
     }
     
     function generateQRCode(url) {
