@@ -81,7 +81,6 @@
   
     <div class="button-container">
       <button onclick="processString()">Process</button>
-      <button onclick="scanBarcode()">Scan Barcode</button>
       <button onclick="copyResult()">Copy</button>
     </div>
     
@@ -102,24 +101,24 @@
       var resultLabel = document.getElementById("resultLabel");
       resultLabel.textContent = "Processed string: " + processedString;
       
-      generateQRCode(window.location.href);
+      copyToClipboard(processedString);
+    }
+    
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text)
+        .then(function() {
+          console.log("Text copied to clipboard: " + text);
+        })
+        .catch(function(error) {
+          console.error("Error copying text to clipboard: " + error);
+        });
     }
     
     function copyResult() {
       var resultLabel = document.getElementById("resultLabel");
       var processedString = resultLabel.textContent.replace("Processed string: ", "");
       
-      // Create a temporary textarea element to copy the text
-      var tempTextarea = document.createElement("textarea");
-      tempTextarea.value = processedString;
-      document.body.appendChild(tempTextarea);
-      
-      // Copy the text from the temporary textarea
-      tempTextarea.select();
-      document.execCommand("copy");
-      
-      // Remove the temporary textarea
-      document.body.removeChild(tempTextarea);
+      copyToClipboard(processedString);
     }
     
     function generateQRCode(url) {
@@ -133,9 +132,7 @@
       });
     }
     
-    function scanBarcode() {
-      alert("Barcode scanning is not supported in the browser. Please use a dedicated barcode scanning app.");
-    }
+    generateQRCode(window.location.href);
   </script>
 </body>
 </html>
