@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Page</title>
+</head>
+<body>
+  <h1>Welcome to My Page</h1>
+  
+  <label for="inputString">Paste your string:</label>
+  <textarea id="inputString" rows="4" cols="50"></textarea>
+  
+  <button onclick="processString()">Process</button>
+  
+  <script>
+    function processString() {
+      var inputElement = document.getElementById("inputString");
+      var inputString = inputElement.value;
+      
+      // Perform your desired string processing here
+      
+      // Example: Remove spaces
+      var processedString = inputString.replace(/\s/g, "");
+      
+      alert("Processed string: " + processedString);
+    }
+  </script>
+</body>
+</html>
