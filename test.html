@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Page</title>
+  <title>Remove Spaces</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -53,6 +53,11 @@
     button:hover {
       background-color: #005A9E;
     }
+    
+    .result-label {
+      margin-top: 10px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -60,9 +65,11 @@
   
   <div class="form-container">
     <label for="inputString">Paste your string:</label>
-    <textarea id="inputString" rows="1" cols="50"></textarea>
+    <textarea id="inputString" rows="2" cols="50"></textarea>
   
     <button onclick="processString()">Process</button>
+    
+    <label class="result-label" id="resultLabel"></label>
   </div>
   
   <script>
@@ -75,7 +82,8 @@
       // Example: Remove spaces
       var processedString = inputString.replace(/\s/g, "");
       
-      alert("Processed string: " + processedString);
+      var resultLabel = document.getElementById("resultLabel");
+      resultLabel.textContent = "Processed string: " + processedString;
     }
   </script>
 </body>
