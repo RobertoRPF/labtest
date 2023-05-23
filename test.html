@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Remove Spaces and Dots</title>
+  <title>Barcode Scanner</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -61,27 +61,48 @@
   </style>
 </head>
 <body>
-  <h1>Remove Spaces and Dots</h1>
+  <h1>Barcode Scanner</h1>
   
   <div class="form-container">
     <label for="inputString">Paste your string:</label>
     <textarea id="inputString" rows="2" cols="50"></textarea>
   
-    <button onclick="processString()">Process</button>
+    <button onclick="scanBarcode()">Scan</button>
     
     <label class="result-label" id="resultLabel"></label>
   </div>
   
+  <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
   <script>
-    function processString() {
-      var inputElement = document.getElementById("inputString");
-      var inputString = inputElement.value;
-      
-      // Remove spaces and dots from the input string
-      var processedString = inputString.replace(/[\s.]/g, "");
-      
+    function scanBarcode() {
       var resultLabel = document.getElementById("resultLabel");
-      resultLabel.textContent = "Processed string: " + processedString;
+      resultLabel.textContent = "Scanning...";
+      
+      Quagga.init({
+        inputStream: {
+          name: "Live",
+          type: "LiveStream",
+          target: document.querySelector('#inputString') // Use the textarea as the target
+        },
+        decoder: {
+          readers: ['ean_reader'] // Configure the supported barcode types here
+        }
+      }, function(err) {
+        if (err) {
+          console.error("Failed to initialize Quagga:", err);
+          resultLabel.textContent = "Failed to initialize barcode scanner.";
+          return;
+        }
+        
+        Quagga.start();
+        
+        Quagga.onDetected(function(result) {
+          if (result && result.codeResult && result.codeResult.code) {
+            Quagga.stop();
+            resultLabel.textContent = "Scanned barcode: " + result.codeResult.code;
+          }
+        });
+      });
     }
   </script>
 </body>
