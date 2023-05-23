@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Remove Spaces</title>
+  <title>Remove Spaces and Dots</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -35,7 +35,7 @@
       background-color: #fff;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       resize: vertical;
-      height: 50px;
+      height: 30px;
     }
     
     button {
@@ -61,7 +61,7 @@
   </style>
 </head>
 <body>
-  <h1>Remove Spaces</h1>
+  <h1>Remove Spaces and Dots</h1>
   
   <div class="form-container">
     <label for="inputString">Paste your string:</label>
@@ -77,10 +77,8 @@
       var inputElement = document.getElementById("inputString");
       var inputString = inputElement.value;
       
-      // Perform your desired string processing here
-      
-      // Example: Remove spaces
-      var processedString = inputString.replace(/\s/g, "");
+      // Remove spaces and dots from the input string
+      var processedString = inputString.replace(/[\s.]/g, "");
       
       var resultLabel = document.getElementById("resultLabel");
       resultLabel.textContent = "Processed string: " + processedString;
