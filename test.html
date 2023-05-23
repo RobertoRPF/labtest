@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Barcode Scanner</title>
+  <title>Remove Spaces</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,9 +38,13 @@
       height: 30px;
     }
     
-    button {
-      display: block;
+    .button-container {
+      display: flex;
+      justify-content: space-between;
       margin-top: 10px;
+    }
+    
+    button {
       padding: 10px 20px;
       background-color: #0078D7;
       color: #fff;
@@ -68,17 +72,19 @@
   </style>
 </head>
 <body>
-  <h1>Barcode Scanner</h1>
+  <h1>Remove Spaces</h1>
   
   <div class="form-container">
     <label for="inputString">Paste your string:</label>
-    <textarea id="inputString" rows="2" cols="50"></textarea>
+    <textarea id="inputString" rows="1" cols="50"></textarea>
   
-    <button onclick="processString()">Process</button>
+    <div class="button-container">
+      <button onclick="processString()">Process</button>
+      <button onclick="generateQRCode(window.location.href)">Scan QR Code</button>
+      <button onclick="copyResult()">Copy</button>
+    </div>
     
     <label class="result-label" id="resultLabel"></label>
-    
-    <button onclick="copyResult()">Copy</button>
   </div>
   
   <div id="qrcode"></div>
@@ -104,4 +110,7 @@
       var processedString = resultLabel.textContent.replace("Processed string: ", "");
       
       // Create a temporary textarea element to copy the text
-      var tempTextarea =
+      var tempTextarea = document.createElement("textarea");
+      tempTextarea.value = processedString;
+      document.body.appendChild(tempTextarea);
+     
