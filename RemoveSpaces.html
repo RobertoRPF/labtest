@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Remove Spaces</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .form-container {
+      width: 50%;
+      margin: 0 auto;
+    }
+    
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    textarea {
+      width: 80%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      resize: vertical;
+      height: 30px;
+    }
+    
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    
+    button {
+      padding: 20px 10px;
+      background-color: #0078D7;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #005A9E;
+    }
+    
+    .result-label {
+      margin-top: 10px;
+      font-weight: bold;
+      height: 30px;
+    }
+    
+    #qrcode {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>Remove Spaces</h1>
+  
+  <div class="form-container">
+    <label for="inputString">Paste your string:</label>
+    <textarea id="inputString" rows="1" cols="50"></textarea>
+  
+    <div class="button-container">
+      <button onclick="processString()">Process</button>
+    </div>
+    
+    <label class="result-label" id="resultLabel"></label>
+  </div>
+  
+  <div id="qrcode"></div>
+  
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <script>
+    function processString() {
+      var inputElement = document.getElementById("inputString");
+      var inputString = inputElement.value;
+      
+      // Remove spaces and dots from the input string
+      var processedString = inputString.replace(/[\s.]/g, "");
+      
+      var resultLabel = document.getElementById("resultLabel");
+      resultLabel.textContent = "Processed string: " + processedString;
+      
+      copyToClipboard(processedString);
+    }
+    
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text)
+        .then(function() {
+          console.log("Text copied to clipboard: " + text);
+        })
+        .catch(function(error) {
+          console.error("Error copying text to clipboard: " + error);
+        });
+    }
+    
+    function generateQRCode(url) {
+      var qrcodeContainer = document.getElementById("qrcode");
+      qrcodeContainer.innerHTML = ""; // Clear previous QR code
+      
+      var qrcode = new QRCode(qrcodeContainer, {
+        text: url,
+        width: 128,
+        height: 128
+      });
+    }
+    
+    generateQRCode(window.location.href);
+  </script>
+</body>
+</html>
