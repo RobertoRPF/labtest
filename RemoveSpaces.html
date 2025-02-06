@@ -5,19 +5,21 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f5f5;
+      background-color: #121212;
+      color: #fff;
       margin: 0;
       padding: 20px;
     }
     
     h1 {
-      color: #333;
+      color: #fff;
       text-align: center;
       margin-bottom: 20px;
     }
     
     .form-container {
-      width: 50%;
+      width: 100%;
+      max-width: 600px;
       margin: 0 auto;
     }
     
@@ -25,27 +27,29 @@
       display: block;
       font-weight: bold;
       margin-bottom: 10px;
+      color: #ccc;
     }
     
     textarea {
-      width: 80%;
+      width: 100%;
       padding: 10px;
-      border: none;
+      border: 1px solid #333;
       border-radius: 4px;
-      background-color: #fff;
+      background-color: #333;
+      color: #fff;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       resize: vertical;
-      height: 30px;
+      height: 40px;
     }
     
     .button-container {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       margin-top: 10px;
     }
     
     button {
-      padding: 20px 10px;
+      padding: 15px 20px;
       background-color: #0078D7;
       color: #fff;
       border: none;
@@ -62,6 +66,7 @@
       margin-top: 10px;
       font-weight: bold;
       height: 30px;
+      color: #fff;
     }
     
     #qrcode {
@@ -69,6 +74,16 @@
       bottom: 20px;
       right: 20px;
       text-align: left;
+    }
+    
+    @media (max-width: 600px) {
+      .form-container {
+        width: 90%;
+      }
+      
+      textarea {
+        height: 50px;
+      }
     }
   </style>
 </head>
